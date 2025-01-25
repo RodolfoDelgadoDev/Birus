@@ -27,5 +27,9 @@ public class LifeBubble : MonoBehaviour
             audioSource.Play();
         else
             Destroy(this.gameObject);
+
+        
+
+
     }
 }
