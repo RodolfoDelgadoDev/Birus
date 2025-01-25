@@ -47,10 +47,7 @@ public class Shoot : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             charging = false;
-            if(timeHold >= timeCharged)
-                ShootBigBubble();
-            else
-                ShootSmallBubble();
+                ShootBubble();
             timeHold = 0.0f;
         }
     }
@@ -58,14 +55,17 @@ public class Shoot : MonoBehaviour
     void ShootSmallBubble()
     {
         bubbleIn = Instantiate(smallBubble, origin.position, origin.rotation);
+        bubbleIn.transform.localScale *= timeHold;
         bubbleIn.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0,60f,200f), ForceMode.Force);
         remainingBullets--;
 
     }
 
-    void ShootBigBubble()
+    void ShootBubble()
     {
         bubbleIn = Instantiate(bigBubble, origin.position, origin.rotation);
+        bubbleIn.transform.localScale *= timeHold;
+    
         bubbleIn.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0,60f,200f), ForceMode.Force);
         remainingBullets--;
     }
