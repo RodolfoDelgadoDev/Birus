@@ -18,7 +18,6 @@ public class Shoot : MonoBehaviour
     private Animator animator;
 
 
-    [SerializeField] private GameObject smallBubble;
 
     [SerializeField] private GameObject bigBubble;
 
@@ -47,27 +46,26 @@ public class Shoot : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             charging = false;
-                ShootBubble();
+            ShootBubble();
             timeHold = 0.0f;
         }
-    }
-    
-    void ShootSmallBubble()
-    {
-        bubbleIn = Instantiate(smallBubble, origin.position, origin.rotation);
-        bubbleIn.transform.localScale *= timeHold;
-        bubbleIn.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0,60f,200f), ForceMode.Force);
-        remainingBullets--;
-
-    }
+    }  
 
     void ShootBubble()
     {
         bubbleIn = Instantiate(bigBubble, origin.position, origin.rotation);
         bubbleIn.transform.localScale *= timeHold;
-    
-        bubbleIn.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0,60f,200f), ForceMode.Force);
+        float forceY = Random.Range(-20,20);
+
+        Debug.Log("HOLA AMIGUIS ME LLAMO Y Y MI FOTOLOG ES " + forceY);
+        
+        float forceX = Random.Range(-20,20);
+
+        Debug.Log("HOLA AMIGUIS ME LLAMO X Y MI FOTOLOG ES " + forceX);
+
+        bubbleIn.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(forceX,forceY,150f), ForceMode.Force);
         remainingBullets--;
     }
+    
 
 }
