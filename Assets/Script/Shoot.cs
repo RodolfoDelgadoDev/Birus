@@ -10,12 +10,17 @@ public class Shoot : MonoBehaviour
     
     [SerializeField] GameObject weapon;
 
-    
+    private float timeCharged = 1.5f;
+
+    private float timeHold = 0.0f;
+    private bool charging = false;
 
     private Animator animator;
 
 
-    [SerializeField] private GameObject bubble;
+    [SerializeField] private GameObject smallBubble;
+
+    [SerializeField] private GameObject bigBubble;
 
     private GameObject bubbleIn;
 
@@ -32,22 +37,37 @@ public class Shoot : MonoBehaviour
     {
         if( Input.GetMouseButtonDown(0))
         {
-            if(remainingBullets > 0)
-            {
-            bubbleIn = Instantiate(bubble, origin.position, origin.rotation);
-            bubbleIn.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0,30f,100f), ForceMode.Force);
-            remainingBullets--;
-            Debug.Log("CAPITO ME QUEDAN " + remainingBullets + "BALAAAAASSS");
-            }
-            else
-            {
-                Debug.Log("TENGO QUE CARGAR LOCO AAAAAAAAAAAAAAAA");
-            }
+            charging = true;
+            timeHold = 0.0f;
         }
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetMouseButton(0))
         {
-            remainingBullets = 20;
-            Debug.Log("CARGADO MI LOCO!");
+            timeHold += Time.deltaTime;
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            charging = false;
+            if(timeHold >= timeCharged)
+                ShootBigBubble();
+            else
+                ShootSmallBubble();
+            timeHold = 0.0f;
         }
     }
+    
+    void ShootSmallBubble()
+    {
+        bubbleIn = Instantiate(smallBubble, origin.position, origin.rotation);
+        bubbleIn.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0,60f,200f), ForceMode.Force);
+        remainingBullets--;
+
+    }
+
+    void ShootBigBubble()
+    {
+        bubbleIn = Instantiate(bigBubble, origin.position, origin.rotation);
+        bubbleIn.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0,60f,200f), ForceMode.Force);
+        remainingBullets--;
+    }
+
 }
