@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 
 [RequireComponent(typeof(CharacterController))]
@@ -9,14 +11,13 @@ public class PlayerMovement : MonoBehaviour
 {
 
     [SerializeField] Camera playerCamera;
-    [SerializeField] float walkSpeed = 6f;
+    [SerializeField] float walkSpeed = 6f, stunDur = 1.5f;
     [SerializeField] float runSpeed = 12f;
     [SerializeField] float jumpPower = 7f;
     [SerializeField] float gravity = 9.8f;
-
+    [SerializeField] GameObject stun;
     [SerializeField] float lookSpeed = 2f;  
     [SerializeField] float lookXLimit = 45f;
-
 
     private Vector3 moveDirection = Vector3.zero;
     private float rotationX = 0f;
@@ -73,12 +74,34 @@ public class PlayerMovement : MonoBehaviour
 
 
     }
-
     
     void OnCollisionEnter(Collision collision)
     {
         
         if(collision.gameObject.tag == "Platforms")
             Debug.Log("AY SOY PLATAFORMA");
+    }
+
+    void playerStun()
+    {
+        stun.gameObject.SetActive(true);
+        stun.gameObject.transform.parent = null;
+        StartCoroutine(stunDuration());
+    }
+
+    IEnumerator stunDuration()
+    {
+        yield return new WaitForSeconds(stunDur);
+        stun.gameObject.SetActive(false);
+        stun.gameObject.transform.parent = gameObject.transform;
+    }
+
+    void OnTriggerEnter (Collider other)
+    {
+        if (other.tag == "Sword")
+        {
+            //Debug.Log("RODOLFOOO");
+            playerStun();
+        }
     }
 }

@@ -63,11 +63,11 @@ public class Shoot : MonoBehaviour
         bubbleIn = Instantiate(bigBubble, origin.position, origin.rotation);
         
         bubbleIn.transform.localScale *= timeHold;
-        float forceY = Random.Range(-20,20);
+        float forceY = Random.Range(-10,30);
 
         //Debug.Log("HOLA AMIGUIS ME LLAMO Y Y MI FOTOLOG ES " + forceY);
         
-        float forceX = Random.Range(-20,20);
+        float forceX = Random.Range(-10,30);
 
        // Debug.Log("HOLA AMIGUIS ME LLAMO X Y MI FOTOLOG ES " + forceX);
 

@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class TroyanController : MonoBehaviour
 {
     [SerializeField] Transform player, homePosition, patrolCenter;
+    [SerializeField] GameObject sword;
     [SerializeField] float attackRange = 1.5f, patrolRadius = 15.0f;
     [SerializeField] float attackCooldown = 5.0f, HP = 6.0f, smallBulletResistance = 4f, bigBulletResistance = 0.3f;
     [SerializeField] bool canMove = true;
@@ -31,7 +32,7 @@ public class TroyanController : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(HP);
+        //Debug.Log(HP);
         float patrolDistance = Vector3.Distance(patrolCenter.position, transform.position);
         if (actualState!=EnemyState.Death)
         {
@@ -47,6 +48,7 @@ public class TroyanController : MonoBehaviour
 
             case EnemyState.Attacking:
                 animator.Play("Attack");
+                sword.GetComponent<BoxCollider>().enabled = true;
             break;
 
         }
@@ -96,6 +98,7 @@ public class TroyanController : MonoBehaviour
     IEnumerator ResetState()
     {
         yield return new WaitForSeconds(1.5f);
+        sword.GetComponent<BoxCollider>().enabled = false;
         actualState = EnemyState.Idle;
     }
 
