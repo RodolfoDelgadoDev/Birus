@@ -2916,7 +2916,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
     "m_ObjectId": "f4f22bbfe62140f2a1124b4b9fbe9f36",
     "m_Id": 0,
-    "m_DisplayName": "BloomColor",
+    "m_DisplayName": "Color",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",

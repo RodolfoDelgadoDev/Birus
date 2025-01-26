@@ -5,6 +5,7 @@ using UnityEngine;
 public class Shoot : MonoBehaviour
 {
     [SerializeField] private Transform origin;
+    [SerializeField] float bubbleSizeLimit = 2f;
 
     private int remainingBullets;
     
@@ -34,6 +35,7 @@ public class Shoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if( Input.GetMouseButtonDown(0))
         {
             charging = true;
@@ -49,19 +51,25 @@ public class Shoot : MonoBehaviour
             ShootBubble();
             timeHold = 0.0f;
         }
+        if (timeHold > bubbleSizeLimit)
+        {
+            timeHold = bubbleSizeLimit;
+        }
+        //Debug.Log(timeHold);
     }  
 
     void ShootBubble()
     {
         bubbleIn = Instantiate(bigBubble, origin.position, origin.rotation);
+        
         bubbleIn.transform.localScale *= timeHold;
         float forceY = Random.Range(-20,20);
 
-        Debug.Log("HOLA AMIGUIS ME LLAMO Y Y MI FOTOLOG ES " + forceY);
+        //Debug.Log("HOLA AMIGUIS ME LLAMO Y Y MI FOTOLOG ES " + forceY);
         
         float forceX = Random.Range(-20,20);
 
-        Debug.Log("HOLA AMIGUIS ME LLAMO X Y MI FOTOLOG ES " + forceX);
+       // Debug.Log("HOLA AMIGUIS ME LLAMO X Y MI FOTOLOG ES " + forceX);
 
         bubbleIn.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(forceX,forceY,150f), ForceMode.Force);
         remainingBullets--;
