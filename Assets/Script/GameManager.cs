@@ -1,17 +1,33 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public barSCript corruptionBar; // referencia al script de la barra de corrupcion
-    public int corruption = 0; 
-    public int enemyDamage = 5; 
+    public float corruption = 0; 
+    public int enemyDamage = 3;
+
+    private int wormCounter = 14;
+
+    private float secondGame = 0.0f;
     
+    private float corruptionTimer = 5.0f;
+    [SerializeField] private GameObject pantallazo;
+
+    private void Start()
+    {
+        pantallazo.SetActive(false);
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        secondGame += Time.deltaTime;
+        if(secondGame > corruptionTimer)
         {
-            addCorruption();
+        addCorruption();
+        secondGame = 0.0f;
         }
     }
 
@@ -19,15 +35,24 @@ public class GameManager : MonoBehaviour
     {
         if (corruption < 100)
         {
-            corruption += enemyDamage;
+            corruption +=  enemyDamage;
             corruptionBar.setCorruption();
             print (corruption);
         }
         else 
         {
             corruption = 100;
-            print("GAME OVER"); 
+            print("GAME OVER");
+            pantallazo.SetActive(true);
         }
+    }
+
+    public void WormDead()
+    {
+        wormCounter--;
+        if(wormCounter % 5 == 0 )
+            enemyDamage--;
         
     }
+    
 }

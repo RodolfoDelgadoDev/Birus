@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 
 [RequireComponent(typeof(CharacterController))]
@@ -9,14 +11,17 @@ public class PlayerMovement : MonoBehaviour
 {
 
     [SerializeField] Camera playerCamera;
-    [SerializeField] float walkSpeed = 6f;
+    [SerializeField] float walkSpeed = 6f, stunDur = 1.5f;
     [SerializeField] float runSpeed = 12f;
     [SerializeField] float jumpPower = 7f;
     [SerializeField] float gravity = 9.8f;
-
+    [SerializeField] GameObject stun;
     [SerializeField] float lookSpeed = 2f;  
     [SerializeField] float lookXLimit = 45f;
-
+    //for vignette effect during stun
+    [SerializeField] float fromValue = 1.20f, toValue = 1.5f, vignetteDuration = 1.5f;
+    [SerializeField] Material vignetteMat;
+    //------------------------------------------------------------------------------------
 
     private Vector3 moveDirection = Vector3.zero;
     private float rotationX = 0f;
@@ -34,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        vignetteMat.SetFloat("_Power", 15);
     }
 
     // Update is called once per frame
@@ -73,12 +79,55 @@ public class PlayerMovement : MonoBehaviour
 
 
     }
-
     
     void OnCollisionEnter(Collision collision)
     {
         
         if(collision.gameObject.tag == "Platforms")
             Debug.Log("AY SOY PLATAFORMA");
+    }
+
+    void playerStun()
+    {
+        //stun.gameObject.SetActive(true);
+        //stun.gameObject.transform.parent = null;
+        
+        canMove = false;
+        StartCoroutine(stunDuration());
+    }
+
+    IEnumerator stunDuration()
+    {
+        yield return StartCoroutine(LerpMatVignette(fromValue, toValue, vignetteDuration));
+        //yield return StartCoroutine(LerpMatVignette(toValue, fromValue, vignetteDuration));
+        yield return new WaitForSeconds(stunDur);
+        canMove = true;
+      //  stun.gameObject.SetActive(false);
+      //  stun.gameObject.transform.parent = gameObject.transform;
+      //  stun.gameObject.transform.position = new Vector3(0, 0, 0);
+        vignetteMat.SetFloat("_Power", 15);
+
+    }
+
+    IEnumerator LerpMatVignette(float start, float end, float time)
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < time)
+        {
+            vignetteMat.SetFloat("_Power", Mathf.Lerp(4, 10f, (elapsedTime / time)));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+    }
+
+    void OnTriggerEnter (Collider other)
+    {
+        if (other.tag == "Sword")
+        {
+            //Debug.Log("RODOLFOOO");
+            playerStun();
+        }
     }
 }

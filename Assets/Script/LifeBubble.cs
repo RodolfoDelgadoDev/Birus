@@ -6,6 +6,7 @@ public class LifeBubble : MonoBehaviour
 {
 
     [SerializeField] private float endLife = 4.0f;
+    [SerializeField] GameObject bubbleParticle;
 
     private float startingLife = 0f;
 
@@ -23,13 +24,22 @@ public class LifeBubble : MonoBehaviour
     {
         if(startingLife < endLife)
             startingLife += Time.deltaTime;
-        else if (startingLife + 1.0f == endLife)
-            audioSource.Play();
-        else
-            Destroy(this.gameObject);
+        if(startingLife > endLife)
+            destroyBubble();
 
-        
+    }
 
+    public void destroyBubble()
+    {
+        //Debug.Log("OLA");
+        audioSource.Play();
+        Instantiate(bubbleParticle, transform.position, Quaternion.identity);
+        StartCoroutine(sleep2sec());
+        Destroy(this.gameObject);
+    }
 
+    IEnumerator sleep2sec()
+    {
+        yield return new WaitForSeconds(1.5f);
     }
 }
