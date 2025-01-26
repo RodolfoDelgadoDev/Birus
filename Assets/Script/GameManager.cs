@@ -54,7 +54,11 @@ public class GameManager : MonoBehaviour
         if(wormCounter % 5 == 0 )
             enemyDamage--;
         if (wormCounter == 0)
-            SceneManager.LoadScene(1);
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            SceneManager.LoadScene(2);
+        }
         
     }
     
