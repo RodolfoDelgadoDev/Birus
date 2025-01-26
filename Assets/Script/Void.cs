@@ -1,25 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class TeleportTo : MonoBehaviour
+public class Void : MonoBehaviour
 {
-    [SerializeField] private Transform end;
-
     [SerializeField] private GameObject player;
 
+    [SerializeField] private GameObject[] checkpoints;
+
+    private int currentCheckpoint = 0;
     void OnTriggerEnter (Collider other)
     {
         if(other.tag == "Player")
         {
             player.GetComponent<CharacterController>().enabled = false;
             Debug.Log("OLA");
-            player.transform.position = end.position;
+            player.transform.position = checkpoints[currentCheckpoint].transform.position;
             player.GetComponent<CharacterController>().enabled = true;
-
         }
     }
-    
+
+    public void Checkpoint()
+    {
+        currentCheckpoint++;
+    }
 
 }
