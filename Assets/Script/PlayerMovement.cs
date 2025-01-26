@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -13,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpPower = 7f;
     [SerializeField] float gravity = 9.8f;
 
-    [SerializeField] float lookSpeed = 2f;
+    [SerializeField] float lookSpeed = 2f;  
     [SerializeField] float lookXLimit = 45f;
 
 
@@ -71,5 +72,13 @@ public class PlayerMovement : MonoBehaviour
 
 
 
+    }
+
+    
+    void OnCollisionEnter(Collision collision)
+    {
+        
+        if(collision.gameObject.tag == "Platforms")
+            Debug.Log("AY SOY PLATAFORMA");
     }
 }
