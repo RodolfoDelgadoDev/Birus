@@ -4,8 +4,14 @@ public class GameManager : MonoBehaviour
 {
     public barSCript corruptionBar; // referencia al script de la barra de corrupcion
     public int corruption = 0; 
-    public int enemyDamage = 5; 
-    
+    public int enemyDamage = 5;
+    [SerializeField] private GameObject pantallazo;
+
+    private void Start()
+    {
+        pantallazo.SetActive(false);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -26,8 +32,8 @@ public class GameManager : MonoBehaviour
         else 
         {
             corruption = 100;
-            print("GAME OVER"); 
+            print("GAME OVER");
+            pantallazo.SetActive(true);
         }
-        
     }
 }
