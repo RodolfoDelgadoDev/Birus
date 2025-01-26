@@ -5,7 +5,7 @@ using UnityEngine;
 public class LifeBubble : MonoBehaviour
 {
 
-    private float endLife = 4.0f;
+    [SerializeField] private float endLife = 4.0f;
 
     private float startingLife = 0f;
 
