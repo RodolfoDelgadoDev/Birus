@@ -14,7 +14,7 @@ public class WormController : MonoBehaviour
     private GameManager gameManagerScript;
 
     private float smallBulletResistance = 4f, bigBulletResistance = 0.3f;
-    private float HP = 1.5f;
+    private float HP = 1f;
 
     // Start is called before the first frame update
     void Start()
