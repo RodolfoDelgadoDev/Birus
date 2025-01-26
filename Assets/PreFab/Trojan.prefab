@@ -96,9 +96,10 @@ MonoBehaviour:
   player: {fileID: 0}
   homePosition: {fileID: 0}
   patrolCenter: {fileID: 0}
+  sword: {fileID: 0}
   attackRange: 1.5
   patrolRadius: 20
-  attackCooldown: 3.5
+  attackCooldown: 4
   HP: 6
   smallBulletResistance: 2
   bigBulletResistance: 0.3
@@ -197,6 +198,16 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7503986280926375392, guid: 0b3cde8ebdb7243f7b81db99a6d966aa,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c448b4ed1d5cb684cbb2fbbeaecd6c40, type: 2}
+    - target: {fileID: 7503986280926375392, guid: 0b3cde8ebdb7243f7b81db99a6d966aa,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 91b59c0022a2e794da64e45c728f3e5b, type: 2}
     m_RemovedComponents:
     - {fileID: 5866666021909216657, guid: 0b3cde8ebdb7243f7b81db99a6d966aa, type: 3}
     m_RemovedGameObjects: []

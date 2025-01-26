@@ -6,10 +6,11 @@ using UnityEngine.AI;
 public class TroyanController : MonoBehaviour
 {
     [SerializeField] Transform player, homePosition, patrolCenter;
-    [SerializeField] GameObject sword;
+    [SerializeField] GameObject sword, bubble, particles;
     [SerializeField] float attackRange = 1.5f, patrolRadius = 15.0f;
     [SerializeField] float attackCooldown = 5.0f, HP = 6.0f, smallBulletResistance = 4f, bigBulletResistance = 0.3f;
     [SerializeField] bool canMove = true;
+
     float lastAttack = 0f;
     UnityEngine.AI.NavMeshAgent agent;
     Animator animator;
@@ -28,6 +29,7 @@ public class TroyanController : MonoBehaviour
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         animator = GetComponent<Animator>();
         actualState = EnemyState.Idle;
+        bubble.gameObject.SetActive(false);
     }
 
     void Update()
@@ -102,6 +104,13 @@ public class TroyanController : MonoBehaviour
         actualState = EnemyState.Idle;
     }
 
+    IEnumerator wait2secs()
+    {
+        yield return new WaitForSeconds(2f);
+        Instantiate(particles, transform.position, Quaternion.identity);
+        Destroy(this.gameObject);
+    }
+
     public void TriggerAttack(bool canAttack, bool home)
     {
         if (canAttack)
@@ -120,7 +129,10 @@ public class TroyanController : MonoBehaviour
         if (HP <= 0)
         {
             actualState = EnemyState.Death;
+            bubble.gameObject.SetActive(true);
             animator.Play("Dead");
+            StartCoroutine(wait2secs());
+            
         }
     }
 
@@ -138,7 +150,7 @@ public class TroyanController : MonoBehaviour
                 bulletDamage -= bigBulletResistance;
             }
             getDamage(bulletDamage);
-            Destroy(other.gameObject);
+            other.gameObject.GetComponent<LifeBubble>().destroyBubble();
         }
     }
 

@@ -18,6 +18,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject stun;
     [SerializeField] float lookSpeed = 2f;  
     [SerializeField] float lookXLimit = 45f;
+    //for vignette effect during stun
+    [SerializeField] float fromValue = 1.20f, toValue = 1.5f, vignetteDuration = 1.5f;
+    [SerializeField] Material vignetteMat;
+    //------------------------------------------------------------------------------------
 
     private Vector3 moveDirection = Vector3.zero;
     private float rotationX = 0f;
@@ -35,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        vignetteMat.SetFloat("_Power", 15);
     }
 
     // Update is called once per frame
@@ -84,16 +89,37 @@ public class PlayerMovement : MonoBehaviour
 
     void playerStun()
     {
-        stun.gameObject.SetActive(true);
-        stun.gameObject.transform.parent = null;
+        //stun.gameObject.SetActive(true);
+        //stun.gameObject.transform.parent = null;
+        
+        canMove = false;
         StartCoroutine(stunDuration());
     }
 
     IEnumerator stunDuration()
     {
+        yield return StartCoroutine(LerpMatVignette(fromValue, toValue, vignetteDuration));
+        //yield return StartCoroutine(LerpMatVignette(toValue, fromValue, vignetteDuration));
         yield return new WaitForSeconds(stunDur);
-        stun.gameObject.SetActive(false);
-        stun.gameObject.transform.parent = gameObject.transform;
+        canMove = true;
+      //  stun.gameObject.SetActive(false);
+      //  stun.gameObject.transform.parent = gameObject.transform;
+      //  stun.gameObject.transform.position = new Vector3(0, 0, 0);
+        vignetteMat.SetFloat("_Power", 15);
+
+    }
+
+    IEnumerator LerpMatVignette(float start, float end, float time)
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < time)
+        {
+            vignetteMat.SetFloat("_Power", Mathf.Lerp(4, 10f, (elapsedTime / time)));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
     }
 
     void OnTriggerEnter (Collider other)
