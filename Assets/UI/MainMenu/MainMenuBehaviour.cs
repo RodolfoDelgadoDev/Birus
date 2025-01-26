@@ -12,7 +12,7 @@ public class MainMenuBehaviour : MonoBehaviour
         SceneManager.LoadScene("GameMap");
     }
 
-    //QuitGame
+    //Quits the Game
     public void QuitGame()
     {
         Application.Quit();

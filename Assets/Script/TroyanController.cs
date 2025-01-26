@@ -11,6 +11,8 @@ public class TroyanController : MonoBehaviour
     [SerializeField] float attackCooldown = 5.0f, HP = 6.0f, smallBulletResistance = 4f, bigBulletResistance = 0.3f;
     [SerializeField] bool canMove = true;
 
+    private AudioSource source;
+
     float lastAttack = 0f;
     UnityEngine.AI.NavMeshAgent agent;
     Animator animator;
@@ -91,6 +93,7 @@ public class TroyanController : MonoBehaviour
 
     void AttackPlayer()
     {
+        source.Play();
         actualState = EnemyState.Attacking;
         lastAttack = Time.time;
         //logica para sacarle la faka al player
