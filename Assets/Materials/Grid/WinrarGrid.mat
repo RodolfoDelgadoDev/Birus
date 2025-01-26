@@ -46,13 +46,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 0.241
-    - _Intensity: 5.42
+    - _Alpha: 0.226
+    - _Intensity: 6.61
     - _QueueControl: 0
     - _QueueOffset: 0
     - _speed: 0.1
     m_Colors:
-    - _Color: {r: 0.7738964, g: 0.8773585, b: 0.79052424, a: 0}
+    - _Color: {r: 0.72890705, g: 0.7924528, b: 0.7406748, a: 0}
     - _Direction: {r: 0, g: 1, b: 0, a: 0}
     - _Tiling: {r: 5, g: 5, b: 0, a: 0}
   m_BuildTextureStacks: []
