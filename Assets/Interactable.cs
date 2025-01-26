@@ -31,7 +31,7 @@ public class Interactable : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player" && !interactuado)
+        if(!interactuado && other.tag == "Player" )
         {
             animator.Play("Open");
             interactableUI.SetActive(true);
@@ -42,16 +42,16 @@ public class Interactable : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
 
-        if(other.tag == "Player" && !interactuado)
+        if(!interactuado && other.tag == "Player" )
         {
             if(Input.GetKey(KeyCode.E))
             {
                 interactableUI.SetActive(false);
                 sphere.GetComponent<Renderer>().material = material;
                 platforms.SetActive(true);
-                this.gameObject.GetComponent<BoxCollider>().enabled = false;
                 interactuado = true;
                 voidScript.Checkpoint();
+                this.gameObject.GetComponent<Interactable>().enabled = false;
             }
         }
 
@@ -59,7 +59,7 @@ public class Interactable : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.tag == "Player" && !interactuado)
+        if(!interactuado && other.tag == "Player" )
         {
             interactableUI.SetActive(false);
             animator.Play("Close");
