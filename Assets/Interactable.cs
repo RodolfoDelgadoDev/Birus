@@ -11,13 +11,20 @@ public class Interactable : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject interactableUI;
 
-
+    [SerializeField] private Animator animator;
     
-    private TextMeshProUGUI interactText;
+    [SerializeField] private Material material;
+
+    [SerializeField] private GameObject sphere;
+
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
+        {
+            animator.Play("Open");
             interactableUI.SetActive(true);
+        }
         
     }
 
@@ -27,7 +34,8 @@ public class Interactable : MonoBehaviour
         {
             if(Input.GetKey(KeyCode.E))
             {
-                this.gameObject.SetActive(false);
+                interactableUI.SetActive(false);
+                sphere.GetComponent<Renderer>().material = material;
             }
         }
 
@@ -36,7 +44,10 @@ public class Interactable : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if(other.tag == "Player")
+        {
             interactableUI.SetActive(false);
+            animator.Play("Close");
+        }
     }
 
     // Update is called once per frame

@@ -75,8 +75,9 @@ public class PlayerMovement : MonoBehaviour
     }
 
     
-    private void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
+        
         if(collision.gameObject.tag == "Platforms")
             Debug.Log("AY SOY PLATAFORMA");
     }
