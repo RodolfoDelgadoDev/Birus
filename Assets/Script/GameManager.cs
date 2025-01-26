@@ -1,6 +1,7 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -52,6 +53,8 @@ public class GameManager : MonoBehaviour
         wormCounter--;
         if(wormCounter % 5 == 0 )
             enemyDamage--;
+        if (wormCounter == 0)
+            SceneManager.LoadScene(1);
         
     }
     
