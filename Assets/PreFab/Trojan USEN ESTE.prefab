@@ -104,7 +104,7 @@ MonoBehaviour:
   attackRange: 1.5
   patrolRadius: 20
   attackCooldown: 3.5
-  HP: 6
+  HP: 3
   smallBulletResistance: 2
   bigBulletResistance: 0.3
   canMove: 1
