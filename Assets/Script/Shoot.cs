@@ -18,11 +18,13 @@ public class Shoot : MonoBehaviour
 
     private Animator animator;
 
-
+    [SerializeField] AudioClip[] clips;
 
     [SerializeField] private GameObject bigBubble;
 
     private GameObject bubbleIn;
+
+    private AudioSource source;
 
 
     // Start is called before the first frame update
@@ -30,6 +32,7 @@ public class Shoot : MonoBehaviour
     {
         remainingBullets = 20;
         animator = gameObject.GetComponent<Animator>();
+        source = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -47,6 +50,10 @@ public class Shoot : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(0))
         {
+            int audi = Random.Range(0, 2);
+            Debug.Log(audi);
+            source.clip = clips[audi];
+            source.Play();
             charging = false;
             ShootBubble();
             timeHold = 0.0f;
