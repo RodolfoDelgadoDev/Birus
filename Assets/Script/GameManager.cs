@@ -43,8 +43,8 @@ public class GameManager : MonoBehaviour
         else 
         {
             corruption = 100;
-            print("GAME OVER");
             pantallazo.SetActive(true);
+
         }
     }
 

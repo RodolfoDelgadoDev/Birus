@@ -23,5 +23,6 @@ public class Pantallazo : MonoBehaviour
         }
 
         progressText.text = "Kernel compilation complete!"; 
+        Application.Quit();
     }
 }

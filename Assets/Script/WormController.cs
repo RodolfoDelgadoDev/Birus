@@ -16,9 +16,13 @@ public class WormController : MonoBehaviour
     private float smallBulletResistance = 4f, bigBulletResistance = 0.3f;
     private float HP = 1f;
 
+
+    private AudioSource source;
+
     // Start is called before the first frame update
     void Start()
     {
+        source = gameObject.GetComponent<AudioSource>();
         animator = gameObject.GetComponent<Animator>();
         gameManagerScript = gameManager.GetComponent<GameManager>();
     }
@@ -48,6 +52,7 @@ public class WormController : MonoBehaviour
         Debug.Log(HP);
         if (HP <= 0)
         {
+            source.Play();
             animator.Play("Worm_Death");
             this.gameObject.GetComponent<SphereCollider>().enabled = false;
             gameManagerScript.WormDead();
