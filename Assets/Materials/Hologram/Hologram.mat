@@ -68,7 +68,7 @@ Material:
     - _CastShadows: 1
     - _Cull: 2
     - _DstBlend: 10
-    - _FresnelPower: 1
+    - _FresnelPower: 3.57
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Speed: 0.47
@@ -80,7 +80,7 @@ Material:
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 0}
     - _Direction: {r: 2, g: 1, b: 0, a: 0}
-    - _FresnelColor: {r: 0.7830189, g: 0.13967294, b: 0.025854412, a: 0.7843137}
-    - _Speed: {r: 0, g: 0.05, b: 0, a: 0}
-    - _Tile: {r: 1, g: 1.5, b: 0, a: 0}
+    - _FresnelColor: {r: 1.1868347, g: 0.21170458, b: 0.03918796, a: 0.7019608}
+    - _Speed: {r: 3.94, g: 0.05, b: 0, a: 0}
+    - _Tile: {r: 3, g: 0.4, b: 0, a: 0}
   m_BuildTextureStacks: []
